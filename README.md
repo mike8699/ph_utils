@@ -1,12 +1,13 @@
 # ph-asm
 
+## Requirements
+- Python 3.9 or higher (it may work on lower versions of Python 3, but proceed at your own risk)
+- Windows (tested on 8 and 10, not sure about other Windows versions)
+  - This will eventually work on Linux, once I replace some of the Windows-only stuff with more universal tooling
+
 ## Compiling
 
-- Download the following programs and place their .exe files in the `utilities/` folder
-  - `armips.exe` from [ARMIPS assembler](https://github.com/Kingcom/armips)
-  - `blz.exe` from [CUE's NDS/GBA Compressors](https://www.romhacking.net/utilities/826/)
-  - `fixy9.exe` and `makearm9.exe` from the [D-Pad patch](https://github.com/StraDaMa/Legend-of-Zelda-Phantom-Hourglass-D-Pad-Patch) repo
-  - `ndstool.exe` - there's multiple places you can get this from, one of them is [DSLazy](https://www.romhacking.net/utilities/793/)
 - Place a valid TLoZ: Phantom Hourglass ROM in the root of the cloned repo and name it `in.nds`
 - Run `unpack.py` with your installed Python runtime
+  - At this point you can make changes to `main.asm` if desired
 - Run `build.py` with your installed Python runtime
