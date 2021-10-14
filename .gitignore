@@ -1,3 +1,9 @@
 data/
+overlay/
+arm7*.bin
+arm9*.bin
+banner.bin
+header.bin
+y7.bin
+y9.bin
 *.nds
-*.asm
