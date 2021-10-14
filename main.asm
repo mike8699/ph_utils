@@ -60,6 +60,10 @@
         .include "asm/faster_boat.asm"
         pop pc
 
+    @init_flags:
+        .include "asm/init_flags.asm"
+        pop r3, pc
+
     .pool
     .endarea
 
@@ -67,6 +71,10 @@
 
 
 .open "overlay/overlay_0000.bin", 0x02077360
+    .org 0x20300 + 0x02077360
+        .area 0x4
+            b @init_flags
+        .endarea
     .org 0x20424 + 0x02077360
         .area 0x4
             ;bl @repaired_bridge_from_start
