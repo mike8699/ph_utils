@@ -11,3 +11,7 @@
 - Run `unpack.py` with your installed Python runtime
   - At this point you can make changes to `main.asm` if desired
 - Run `build.py` with your installed Python runtime
+
+## TODO
+
+- Reimplement fixy9.exe and makearm9.exe in Python or something so this can be run on non-Windows machines
