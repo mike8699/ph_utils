@@ -9,7 +9,7 @@ push r0, r2, r3, r4 ; preserve original register values
 ; though it is offset by 0x30 so we must subtract that first.
 sub r4, lr, 0x30
 
-ldr r0, =0xF77F7FEE
+ldr r0, =0xF73F7FEE
 str r0, [r4]
 
 ldr r0, =0xFFFFF8FF
