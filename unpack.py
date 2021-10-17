@@ -7,7 +7,7 @@ def extract_arm9(argv: list[str]):
     subprocess.run([Path('utils/makearm9.exe'), '-x', 'arm9.bin', 'arm9_original.bin', 'arm9_header.bin'])
     subprocess.run([Path('utils/blz.exe'), '-d', 'arm9_original.bin'])
 
-    overlays = ('0000', '0031')
+    overlays = ('0000', '0022', '0031')
     for overlay in overlays:
         subprocess.run([Path('utils/blz.exe'), '-d', f'overlay/overlay_{overlay}.bin'])
 

@@ -12,7 +12,7 @@ def build_arm9(argv: list[str]):
     Path.unlink(Path('arm9_header.bin'))
     Path.unlink(Path('arm9_original.bin'))
 
-    overlays = ('0000', '0031')
+    overlays = ('0000', '0022', '0031')
 
     for overlay in overlays:
         subprocess.run([Path('utils/blz.exe'), '-eo', f'overlay/overlay_{overlay}.bin'])
