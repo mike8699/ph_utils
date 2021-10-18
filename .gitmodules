@@ -1,0 +1,3 @@
+[submodule "zdspy"]
+	path = zdspy
+	url = git@github.com:mikeoss/zdspy.git
