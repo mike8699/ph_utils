@@ -13,9 +13,12 @@ jobs:
         with:
           python-version: "3.9"
 
+      - name: Install pip dependencies
+        run: |
+          pip install gdown ndspy
+
       - name: Build
         run: |
-          pip install gdown
           gdown https://drive.google.com/uc?id=${{ secrets.GOOGLE_DRIVE_FILE_ID }}
           python unpack.py
           python build.py
