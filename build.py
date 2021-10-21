@@ -42,14 +42,14 @@ def fix_first_ocean_temple_chest(rom_root_dir: Path = Path.cwd()):
         narc_file = narc.NARC(lz10.decompress(fd.read()))
         zmb_file = zmb.ZMB(narc_file.getFileByName('zmb/dngn_main_00.zmb'))
         mpob: zmb.ZMB_MPOB = zmb_file.get_child('MPOB')
-        mpob.children[34].bmgscriptid = 0x1 # put key in first TotOK chest
+        mpob.children[34].item_id = 0x1 # put key in first TotOK chest
         narc_file.setFileByName('zmb/dngn_main_00.zmb', zmb_file.save())
         lz10.compressToFile((narc_file.save()), filename)
 
 
 def build_data():
     fix_first_ocean_temple_chest()
-
+    
 
 def main(argv: list[str]):
     build_arm9()
