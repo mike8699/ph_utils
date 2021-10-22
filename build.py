@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from pathlib import Path
-import shutil, subprocess, sys
+import shutil, struct, subprocess, sys
 
-from ndspy import narc, lz10
+from ndspy import bmg, narc, lz10
 from zdspy.zdspy import zmb
 from zdspy.ids import ITEM_IDS, OBJECT_IDS
 
@@ -12,9 +12,9 @@ def build_arm9():
     subprocess.run([Path('utils/blz.exe'), '-eo', 'arm9_compressed.bin'])
     # TODO: do this manually instead of relying on makearm9.exe
     subprocess.run([Path('utils/makearm9.exe'), '-c', 'arm9_compressed.bin', 'arm9_header.bin', 'arm9.bin'])
-    Path.unlink(Path('arm9_compressed.bin'))
-    Path.unlink(Path('arm9_header.bin'))
-    Path.unlink(Path('arm9_original.bin'))
+    Path('arm9_compressed.bin').unlink()
+    Path('arm9_header.bin').unlink()
+    Path('arm9_original.bin').unlink()
 
     overlays = ('0000', '0022', '0031')
 
@@ -25,7 +25,7 @@ def build_arm9():
     subprocess.run([Path('utils/fixy9.exe'), 'y9.bin'] + [f'overlay_{overlay}.bin' for overlay in overlays])
 
     for overlay in overlays:
-        Path.unlink(Path(f'overlay_{overlay}.bin'))
+        Path(f'overlay_{overlay}.bin').unlink()
 
 
 def fix_first_ocean_temple_chest(rom_root_dir: Path = Path.cwd()):
@@ -46,10 +46,23 @@ def fix_first_ocean_temple_chest(rom_root_dir: Path = Path.cwd()):
         narc_file.setFileByName('zmb/dngn_main_00.zmb', zmb_file.save())
         lz10.compressToFile((narc_file.save()), filename)
 
+def change_first_npcs_item(rom_root_dir: Path = Path.cwd()):
+    """
+    Changes first NPC (guy who has you clean his yard of rocks)
+    reward from green rupee to Oshus's sword
+
+    TODO: remove this once this is properly documented.
+    """
+    filename = rom_root_dir / Path('data/English/Message/main_isl.bmg')
+    with open(filename, 'rb') as fd:
+        bmg_file = bmg.BMG(fd.read())
+        bmg_file.instructions[135] = bmg_file.instructions[135][:4] + struct.pack('<I', 0x3)
+        bmg_file.saveToFile(filename)
 
 def build_data():
     fix_first_ocean_temple_chest()
-    
+    # change_first_npcs_item()
+
 
 def main(argv: list[str]):
     build_arm9()
