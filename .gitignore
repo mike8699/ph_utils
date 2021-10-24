@@ -7,3 +7,4 @@ header.bin
 y7.bin
 y9.bin
 *.nds
+*.cpython*

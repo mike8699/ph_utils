@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 from pathlib import Path
-import shutil, struct, subprocess, sys
+import shutil, subprocess, sys
 
-from ndspy import bmg, narc, lz10
-from zdspy.zdspy import zmb
+from ndspy import narc, lz10
+from zdspy.randomizer.common import BMG_Location, ZMB_MPOB_Location
 from zdspy.ids import ITEM_IDS, OBJECT_IDS
+
+import randomizer
 
 def build_arm9():
     subprocess.run([Path('utils/armips.exe'), 'main.asm'])
@@ -37,36 +39,27 @@ def fix_first_ocean_temple_chest(rom_root_dir: Path = Path.cwd()):
     you the key when you save him. For the randomizer, the chest should
     contain the key.
     """
-    filename = rom_root_dir / Path('data/Map/dngn_main/map00.bin')
-    with open(filename, 'rb') as fd:
-        narc_file = narc.NARC(lz10.decompress(fd.read()))
-        zmb_file = zmb.ZMB(narc_file.getFileByName('zmb/dngn_main_00.zmb'))
-        mpob: zmb.ZMB_MPOB = zmb_file.get_child('MPOB')
-        mpob.children[34].item_id = 0x1 # put key in first TotOK chest
-        narc_file.setFileByName('zmb/dngn_main_00.zmb', zmb_file.save())
-        lz10.compressToFile((narc_file.save()), filename)
+    randomizer.set_location('first_ocean_temple_chest', 0x3)
 
 def change_first_npcs_item(rom_root_dir: Path = Path.cwd()):
     """
     Changes first NPC (guy who has you clean his yard of rocks)
-    reward from green rupee to Oshus's sword
+    reward from green rupee to yellow potion
 
     TODO: remove this once this is properly documented.
     """
-    filename = rom_root_dir / Path('data/English/Message/main_isl.bmg')
-    with open(filename, 'rb') as fd:
-        bmg_file = bmg.BMG(fd.read())
-        bmg_file.instructions[135] = bmg_file.instructions[135][:4] + struct.pack('<I', 0x3)
-        bmg_file.saveToFile(filename)
+    randomizer.set_location('first_mercay_npc', 0x77)
 
 def build_data():
     fix_first_ocean_temple_chest()
-    # change_first_npcs_item()
+    change_first_npcs_item()
+    BMG_Location.save_all()
+    ZMB_MPOB_Location.save_all()
 
 
 def main(argv: list[str]):
-    build_arm9()
     build_data()
+    build_arm9()
     subprocess.run([Path('utils/ndstool.exe'), '-c', 'out.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
 
 
