@@ -16,8 +16,8 @@ locations: dict[str, Location] = {
     'mercay_island_shipyard_chest': ZMB_MPOB_Location(2, location('Map/isle_main/map16.bin/zmb/isle_main_16.zmb')),
     'mercay_island_oshus_sword_chest': ZMB_MPOB_Location(1, location('Map/isle_main/map19.bin/zmb/isle_main_19.zmb')),
 
-    'isle_ember_chest_near_flame_temple': ZMB_MPOB_Location(74, location('Map/isle_flame/map00.bin/zmb/isle_main_00.zmb')),
-    'isle_ember_chest_on_northern_small_island': ZMB_MPOB_Location(75, location('Map/isle_flame/map00.bin/zmb/isle_main_00.zmb')),
+    'isle_ember_chest_near_flame_temple': ZMB_MPOB_Location(74, location('Map/isle_flame/map00.bin/zmb/isle_flame_00.zmb')),
+    'isle_ember_chest_on_northern_small_island': ZMB_MPOB_Location(75, location('Map/isle_flame/map00.bin/zmb/isle_flame_00.zmb')),
     'flame_temple_first_floor_key_chest': ZMB_MPOB_Location(26, location('Map/dngn_flame/map00.bin/zmb/dngn_flame.zmb')),
     'flame_temple_first_floor_red_rupee_chest': ZMB_MPOB_Location(68, location('Map/dngn_flame/map00.bin/zmb/dngn_flame_00.zmb')),
     'flame_temple_first_floor_red_rupee_chest': ZMB_MPOB_Location(68, location('Map/dngn_flame/map00.bin/zmb/dngn_flame_00.zmb')),
