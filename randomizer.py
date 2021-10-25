@@ -18,6 +18,12 @@ locations: dict[str, Location] = {
 
     'isle_ember_chest_near_flame_temple': ZMB_MPOB_Location(74, location('Map/isle_flame/map00.bin/zmb/isle_main_00.zmb')),
     'isle_ember_chest_on_northern_small_island': ZMB_MPOB_Location(75, location('Map/isle_flame/map00.bin/zmb/isle_main_00.zmb')),
+    'flame_temple_first_floor_key_chest': ZMB_MPOB_Location(26, location('Map/dngn_flame/map00.bin/zmb/dngn_flame.zmb')),
+    'flame_temple_first_floor_red_rupee_chest': ZMB_MPOB_Location(68, location('Map/dngn_flame/map00.bin/zmb/dngn_flame_00.zmb')),
+    'flame_temple_first_floor_red_rupee_chest': ZMB_MPOB_Location(68, location('Map/dngn_flame/map00.bin/zmb/dngn_flame_00.zmb')),
+    'flame_temple_second_floor_boomerang_chest': ZMB_MPOB_Location(7, location('Map/dngn_flame/map01.bin/zmb/dngn_flame_01.zmb')),
+    'flame_temple_third_floor_big_key_chest': ZMB_MPOB_Location(15, location('Map/dngn_flame/map02.bin/zmb/dngn_flame_02.zmb')),
+    'flame_temple_boss_chest': ZMB_MPOB_Location(2, location('Map/boss_flame/map00.bin/zmb/boss_flame_00.zmb')),
 }
 
 
