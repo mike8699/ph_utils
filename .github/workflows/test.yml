@@ -4,7 +4,11 @@ on:
   push:
 jobs:
   test:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -15,7 +19,14 @@ jobs:
         with:
           python-version: "3.9"
 
+      - name: Set up GCC
+        if: startsWith(matrix.os, 'ubuntu')
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          platform: x64
+
       - name: Set up MinGW
+        if: startsWith(matrix.os, 'windows')
         uses: egor-tensin/setup-mingw@v2
         with:
           platform: x64
