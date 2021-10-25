@@ -39,7 +39,7 @@ def fix_first_ocean_temple_chest(rom_root_dir: Path = Path.cwd()):
     you the key when you save him. For the randomizer, the chest should
     contain the key.
     """
-    randomizer.set_location('first_ocean_temple_chest', 0x3)
+    randomizer.set_location('ocean_temple_first_chest', 0x3)
 
 def change_first_npcs_item(rom_root_dir: Path = Path.cwd()):
     """
@@ -48,7 +48,7 @@ def change_first_npcs_item(rom_root_dir: Path = Path.cwd()):
 
     TODO: remove this once this is properly documented.
     """
-    randomizer.set_location('first_mercay_npc', 0x77)
+    randomizer.set_location('mercay_island_first_npc', 0x77)
 
 def build_data():
     fix_first_ocean_temple_chest()
