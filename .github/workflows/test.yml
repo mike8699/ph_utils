@@ -10,10 +10,19 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install Python
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: "3.9"
+
+      - name: Set up MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+      
+      - name: Compile BLZ compression tool
+        run: gcc blz.c -o blz
+        working-directory: utils
 
       - name: Install pip dependencies
         run: |
