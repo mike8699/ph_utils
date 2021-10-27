@@ -4,7 +4,16 @@ from pathlib import Path
 import subprocess
 
 def extract_arm9(argv: list[str]):
-    subprocess.run([Path('utils/makearm9.exe'), '-x', 'arm9.bin', 'arm9_original.bin', 'arm9_header.bin'])
+    
+    # extract arm9 data + header into seperate files
+    with open('arm9.bin', 'rb') as input_arm9, open(
+        'arm9_header.bin', 'wb'
+    ) as output_header, open('arm9_original.bin', 'wb') as output_arm9:
+        output_header.write(input_arm9.read(0x4000))
+        data = input_arm9.read()
+        data = data[:len(data) - 0xC]
+        output_arm9.write(data)
+
     subprocess.run([Path('utils/blz.exe'), '-d', 'arm9_original.bin'])
 
     overlays = ('0000', '0022', '0031')

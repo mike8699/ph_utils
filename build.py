@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from pathlib import Path
-import shutil, subprocess, sys
+import shutil, struct, subprocess, sys
 
 from ndspy import narc, lz10
 from zdspy.randomizer.common import BMG_Location, ZMB_MPOB_Location
@@ -12,8 +12,15 @@ import randomizer
 def build_arm9():
     subprocess.run([Path('utils/armips.exe'), 'main.asm'])
     subprocess.run([Path('utils/blz.exe'), '-eo', 'arm9_compressed.bin'])
-    # TODO: do this manually instead of relying on makearm9.exe
-    subprocess.run([Path('utils/makearm9.exe'), '-c', 'arm9_compressed.bin', 'arm9_header.bin', 'arm9.bin'])
+
+    # Recreate arm9.bin
+    with open('arm9_compressed.bin', 'rb') as input_arm9, open(
+        'arm9_header.bin', 'rb'
+    ) as input_header, open('arm9.bin', 'wb') as output_arm9:
+        data = input_header.read() + input_arm9.read()
+        data = data[:0xB78] + struct.pack('<I', len(data) + 0x2000000) + data[0xB7C:]
+        output_arm9.write(data)
+
     Path('arm9_compressed.bin').unlink()
     Path('arm9_header.bin').unlink()
     Path('arm9_original.bin').unlink()
