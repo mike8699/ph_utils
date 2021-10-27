@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from pathlib import Path
-import shutil, struct, subprocess, sys
+import os, shutil, struct, subprocess, sys
 
 from ndspy import narc, lz10
 from zdspy.randomizer.common import BMG_Location, ZMB_MPOB_Location
@@ -75,10 +75,7 @@ def build_data():
 def main(argv: list[str]):
     build_data()
     build_arm9()
-    try:
-        subprocess.run([Path('utils/ndstool.exe'), '-c', 'out.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
-    except:
-        subprocess.run([Path('utils/ndstool'), '-c', 'out.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
+    subprocess.run([Path(f"utils/ndstool{'.exe' if os.name == 'nt' else ''}"), '-c', 'out.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
 
 
 if __name__ == '__main__':
