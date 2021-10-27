@@ -3,6 +3,13 @@
 from pathlib import Path
 import subprocess
 
+def blz_decomp(filename: str):
+    try:
+        subprocess.run([Path('utils/blz.exe'), '-d', filename])
+    except:
+        subprocess.run([Path('utils/blz'), '-d', filename])
+
+
 def extract_arm9(argv: list[str]):
     
     # extract arm9 data + header into seperate files
@@ -14,11 +21,11 @@ def extract_arm9(argv: list[str]):
         data = data[:len(data) - 0xC]
         output_arm9.write(data)
 
-    subprocess.run([Path('utils/blz.exe'), '-d', 'arm9_original.bin'])
+    blz_decomp('arm9_original.bin')
 
     overlays = ('0000', '0022', '0031')
     for overlay in overlays:
-        subprocess.run([Path('utils/blz.exe'), '-d', f'overlay/overlay_{overlay}.bin'])
+        blz_decomp(f'overlay/overlay_{overlay}.bin')
 
 def main(argv: list[str]):
     subprocess.run([Path('utils/ndstool.exe'), '-v', '-x', 'in_dpad.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])

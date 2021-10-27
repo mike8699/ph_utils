@@ -9,9 +9,17 @@ from zdspy.ids import ITEM_IDS, OBJECT_IDS
 
 import randomizer
 
+def blz_comp(filename: str):
+    try:
+        subprocess.run([Path('utils/blz.exe'), '-eo', filename])
+    except:
+        subprocess.run([Path('utils/blz'), '-eo', filename])
+
+
 def build_arm9():
     subprocess.run([Path('utils/armips.exe'), 'main.asm'])
-    subprocess.run([Path('utils/blz.exe'), '-eo', 'arm9_compressed.bin'])
+
+    blz_comp('arm9_compressed.bin')
 
     # Recreate arm9.bin
     with open('arm9_compressed.bin', 'rb') as input_arm9, open(
@@ -28,7 +36,7 @@ def build_arm9():
     overlays = ('0000', '0022', '0031')
 
     for overlay in overlays:
-        subprocess.run([Path('utils/blz.exe'), '-eo', f'overlay/overlay_{overlay}.bin'])
+        blz_comp(f'overlay/overlay_{overlay}.bin')
         shutil.copy(f'overlay/overlay_{overlay}.bin', f'overlay_{overlay}.bin')
     
     subprocess.run([Path('utils/fixy9.exe'), 'y9.bin'] + [f'overlay_{overlay}.bin' for overlay in overlays])
