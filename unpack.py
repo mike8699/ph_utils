@@ -28,7 +28,10 @@ def extract_arm9(argv: list[str]):
         blz_decomp(f'overlay/overlay_{overlay}.bin')
 
 def main(argv: list[str]):
-    subprocess.run([Path('utils/ndstool.exe'), '-v', '-x', 'in_dpad.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
+    try:
+        subprocess.run([Path('utils/ndstool.exe'), '-v', '-x', 'in_dpad.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
+    except:
+        subprocess.run([Path('utils/ndstool'), '-v', '-x', 'in_dpad.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
     extract_arm9(argv)
 
 
