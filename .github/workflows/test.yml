@@ -8,8 +8,8 @@ jobs:
       fail-fast: false
       matrix:
         # TODO: Support ubuntu
-        # os: [ubuntu-latest, windows-latest]
-        os: [windows-latest]
+        os: [ubuntu-latest, windows-latest]
+        # os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -26,6 +26,10 @@ jobs:
         uses: egor-tensin/setup-gcc@v1
         with:
           platform: x64
+
+      - name: Make ndstool executable
+        if: startsWith(matrix.os, 'ubuntu')
+        run: chmod +x utils/ndstool
 
       - name: Set up MinGW
         if: startsWith(matrix.os, 'windows')
