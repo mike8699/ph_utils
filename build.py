@@ -35,7 +35,11 @@ def build_arm9():
         blz_comp(f'overlay/overlay_{overlay}.bin')
         shutil.copy(f'overlay/overlay_{overlay}.bin', f'overlay_{overlay}.bin')
     
-    subprocess.run([Path('utils/fixy9.exe'), 'y9.bin'] + [f'overlay_{overlay}.bin' for overlay in overlays])
+    run_y9 = [Path('utils/fixy9.exe'), 'y9.bin'] + [f'overlay_{overlay}.bin' for overlay in overlays]
+    if os.name != 'nt':
+        run_y9 = ['wine'] + run_y9
+
+    subprocess.run(run_y9)
 
     for overlay in overlays:
         Path(f'overlay_{overlay}.bin').unlink()

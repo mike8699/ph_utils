@@ -31,6 +31,15 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: chmod +x utils/ndstool
 
+      - name: Install Wine
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo dpkg --add-architecture i386
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+          sudo apt install --install-recommends winehq-stable
+
       - name: Set up MinGW
         if: startsWith(matrix.os, 'windows')
         uses: egor-tensin/setup-mingw@v2
