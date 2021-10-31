@@ -8,6 +8,7 @@ from zdspy.randomizer.common import BMG_Location, ZMB_MPOB_Location
 from zdspy.ids import ITEM_IDS, OBJECT_IDS
 
 import randomizer
+from utils.nds_utils import combine_arm9
 
 def blz_comp(filename: str):
     try:
@@ -22,12 +23,7 @@ def build_arm9():
     blz_comp('arm9_compressed.bin')
 
     # Recreate arm9.bin
-    with open('arm9_compressed.bin', 'rb') as input_arm9, open(
-        'arm9_header.bin', 'rb'
-    ) as input_header, open('arm9.bin', 'wb') as output_arm9:
-        data = input_header.read() + input_arm9.read()
-        data = data[:0xB78] + struct.pack('<I', len(data) + 0x2000000) + data[0xB7C:]
-        output_arm9.write(data)
+    combine_arm9()
 
     Path('arm9_compressed.bin').unlink()
     Path('arm9_header.bin').unlink()
@@ -63,17 +59,17 @@ def change_first_npcs_item(rom_root_dir: Path = Path.cwd()):
 
     TODO: remove this once this is properly documented.
     """
-    randomizer.set_location('mercay_island_first_npc', 0x77)
+    randomizer.set_location('mercay_island_rollable_tree', 0x77)
 
 def build_data():
-    fix_first_ocean_temple_chest()
+    # fix_first_ocean_temple_chest()
     change_first_npcs_item()
-    BMG_Location.save_all()
-    ZMB_MPOB_Location.save_all()
+    # BMG_Location.save_all()
+    # ZMB_MPOB_Location.save_all()
 
 
 def main(argv: list[str]):
-    build_data()
+    # build_data()
     build_arm9()
     subprocess.run([Path(f"utils/ndstool{'.exe' if os.name == 'nt' else ''}"), '-c', 'out.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
 

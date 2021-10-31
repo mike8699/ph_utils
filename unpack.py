@@ -3,6 +3,8 @@
 from pathlib import Path
 import os, subprocess
 
+from utils.nds_utils import split_arm9
+
 def blz_decomp(filename: str):
     try:
         subprocess.run([Path('utils/blz.exe'), '-d', filename])
@@ -12,14 +14,7 @@ def blz_decomp(filename: str):
 
 def extract_arm9(argv: list[str]):
     
-    # extract arm9 data + header into seperate files
-    with open('arm9.bin', 'rb') as input_arm9, open(
-        'arm9_header.bin', 'wb'
-    ) as output_header, open('arm9_original.bin', 'wb') as output_arm9:
-        output_header.write(input_arm9.read(0x4000))
-        data = input_arm9.read()
-        data = data[:len(data) - 0xC]
-        output_arm9.write(data)
+    split_arm9()
 
     blz_decomp('arm9_original.bin')
 
