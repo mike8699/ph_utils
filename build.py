@@ -18,7 +18,10 @@ def blz_comp(filename: str):
 
 
 def build_arm9():
-    subprocess.run([Path('utils/armips.exe'), 'main.asm'])
+    run_armips = [Path(f'utils/armips.exe'), 'main.asm']
+    if os.name != 'nt':
+        run_armips = ['wine'] + run_armips
+    subprocess.run(run_armips)
 
     blz_comp('arm9_compressed.bin')
 
