@@ -60,7 +60,8 @@ jobs:
           python unpack.py
           python build.py
 
-      - name: Test
+      - name: Run tests
+        if: startsWith(matrix.os, 'windows') # py-desmume doesn't work on ubuntu for some reason
         run: |
           pip install py-desmume
           python test/main.py out.nds
