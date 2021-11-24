@@ -59,3 +59,8 @@ jobs:
           gdown https://drive.google.com/uc?id=${{ secrets.GOOGLE_DRIVE_FILE_ID }}
           python unpack.py
           python build.py
+
+      - name: Test
+        run: |
+          pip install py-desmume
+          python test/main.py out.nds
