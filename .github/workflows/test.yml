@@ -9,16 +9,19 @@ jobs:
       matrix:
         # TODO: Support ubuntu 20.04
         os: ["ubuntu-18.04", windows-latest]
+        # TODO: Support python 3.10
+        # Blocked on new release of py-desmume https://github.com/SkyTemple/py-desmume/issues/20
+        pythonVersion: ["3.9"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
 
-      - name: Set up Python
+      - name: Set up Python ${{ matrix.pythonVersion }}
         uses: actions/setup-python@v2
         with:
-          python-version: "3.9"
+          python-version: ${{ matrix.pythonVersion }}
 
       - name: Set up GCC
         if: startsWith(matrix.os, 'ubuntu')
