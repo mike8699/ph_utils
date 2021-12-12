@@ -64,6 +64,5 @@ jobs:
           python build.py
 
       - name: Run tests
-        if: startsWith(matrix.os, 'windows') # py-desmume doesn't work on ubuntu for some reason
         run: |
-          python test/main.py out.nds
+          tox
