@@ -52,10 +52,11 @@ jobs:
 
       - name: Install pip dependencies
         run: |
-          pip install gdown ndspy
+          pip install -e .[test]
 
       - name: Build
         run: |
+          pip install gdown
           gdown https://drive.google.com/uc?id=${{ secrets.GOOGLE_DRIVE_FILE_ID }}
           python unpack.py
           python build.py
@@ -63,5 +64,4 @@ jobs:
       - name: Run tests
         if: startsWith(matrix.os, 'windows') # py-desmume doesn't work on ubuntu for some reason
         run: |
-          pip install py-desmume
           python test/main.py out.nds
