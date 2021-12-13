@@ -45,8 +45,8 @@ class DesmumeEmulator:
 
 
 @pytest.fixture
-def desmume_emulator() -> DesmumeEmulator:
-    return DesmumeEmulator(enable_sdl=True)
+def desmume_emulator(request) -> DesmumeEmulator:
+    return DesmumeEmulator(enable_sdl=False)  # TODO: make enable_sdl configurable
 
 
 @pytest.fixture
