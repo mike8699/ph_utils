@@ -27,7 +27,7 @@ class DesmumeEmulator:
         starting_frame = self.frame
         for _ in range(starting_frame, starting_frame + frames):
             self._next_frame()
-    
+
     def touch_input(self, position: tuple[int, int], idle_frames: int = 0):
         """
         Touch screen at a given location.
@@ -53,5 +53,6 @@ def desmume_emulator() -> DesmumeEmulator:
 
 @pytest.fixture
 def emulator_at_file_select(desmume_emulator: DesmumeEmulator) -> DesmumeEmulator:
-    desmume_emulator.touch_input(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 350)
-    desmume_emulator.touch_input(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 400)
+    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), 350)
+    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), 400)
+    return desmume_emulator
