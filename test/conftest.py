@@ -1,10 +1,11 @@
-from desmume.controls import Keys
+import os
+
 from desmume.emulator import DeSmuME, DeSmuME_SDL_Window, SCREEN_HEIGHT, SCREEN_WIDTH
 
 import pytest
 
 class DesmumeEmulator:
-    def __init__(self, enable_sdl=False):
+    def __init__(self, rom_path: str, enable_sdl=False):
         self.emu: DeSmuME = DeSmuME()
         self.window: DeSmuME_SDL_Window
         if enable_sdl:
@@ -13,6 +14,7 @@ class DesmumeEmulator:
             self.window = None
         self.frame = -1
         self.last_frame = -1
+        self.emu.open(rom_path)
 
     def _next_frame(self):
         self.emu.cycle()
@@ -45,8 +47,8 @@ class DesmumeEmulator:
 
 
 @pytest.fixture
-def desmume_emulator(request) -> DesmumeEmulator:
-    return DesmumeEmulator(enable_sdl=False)  # TODO: make enable_sdl configurable
+def desmume_emulator() -> DesmumeEmulator:
+    return DesmumeEmulator(rom_path=os.environ["PH_ROM_PATH"], enable_sdl=False)  # TODO: make enable_sdl configurable
 
 
 @pytest.fixture

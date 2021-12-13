@@ -66,3 +66,5 @@ jobs:
       - name: Run tests
         run: |
           tox
+        env:
+          PH_ROM_PATH: out.nds
