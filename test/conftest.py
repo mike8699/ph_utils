@@ -12,15 +12,18 @@ class DesmumeEmulator:
             self.window = self.emu.create_sdl_window()
         else:
             self.window = None
-        self.frame = -1
-        self.last_frame = -1
+        self.frame = 0
         self.emu.open(rom_path)
+        self._next_frame()
+        self.emu.input.touch_release()
+        self._next_frame()
 
     def _next_frame(self):
         self.emu.cycle()
+        self.frame += 1
         if self.window is not None:
-            self.window.process_input()
             self.window.draw()
+            self.window.process_input()
 
     def wait(self, frames: int):
         """Idle the emulator for `frames` frames."""
@@ -53,6 +56,9 @@ def desmume_emulator() -> DesmumeEmulator:
 
 @pytest.fixture
 def emulator_at_file_select(desmume_emulator: DesmumeEmulator) -> DesmumeEmulator:
-    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), 350)
-    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), 400)
+    desmume_emulator.wait(350)
+    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,))
+    desmume_emulator.wait(50)
+    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,))
+    desmume_emulator.wait(200)
     return desmume_emulator
