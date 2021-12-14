@@ -1,8 +1,8 @@
 import os
 
-from desmume.emulator import DeSmuME, DeSmuME_SDL_Window, SCREEN_HEIGHT, SCREEN_WIDTH
-
+from desmume.emulator import SCREEN_HEIGHT, SCREEN_WIDTH, DeSmuME, DeSmuME_SDL_Window
 import pytest
+
 
 class DesmumeEmulator:
     def __init__(self, rom_path: str, enable_sdl=False):
@@ -51,14 +51,26 @@ class DesmumeEmulator:
 
 @pytest.fixture
 def desmume_emulator() -> DesmumeEmulator:
-    return DesmumeEmulator(rom_path=os.environ["PH_ROM_PATH"], enable_sdl=False)  # TODO: make enable_sdl configurable
+    return DesmumeEmulator(
+        rom_path=os.environ["PH_ROM_PATH"], enable_sdl=False
+    )  # TODO: make enable_sdl configurable
 
 
 @pytest.fixture
 def emulator_at_file_select(desmume_emulator: DesmumeEmulator) -> DesmumeEmulator:
     desmume_emulator.wait(350)
-    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,))
+    desmume_emulator.touch_input(
+        (
+            SCREEN_WIDTH // 2,
+            SCREEN_HEIGHT // 2,
+        )
+    )
     desmume_emulator.wait(50)
-    desmume_emulator.touch_input((SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,))
+    desmume_emulator.touch_input(
+        (
+            SCREEN_WIDTH // 2,
+            SCREEN_HEIGHT // 2,
+        )
+    )
     desmume_emulator.wait(200)
     return desmume_emulator
