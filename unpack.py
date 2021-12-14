@@ -10,7 +10,7 @@ from utils.nds_utils import split_arm9
 def blz_decomp(filename: str):
     try:
         subprocess.run([Path("utils/blz.exe"), "-d", filename])
-    except subprocess.CalledProcessError:
+    except FileNotFoundError:
         subprocess.run([Path("utils/blz"), "-d", filename])
 
 

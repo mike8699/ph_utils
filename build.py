@@ -16,7 +16,7 @@ CWD: Path = Path.cwd()
 def blz_comp(filename: str):
     try:
         subprocess.run([Path("utils/blz.exe"), "-eo", filename])
-    except subprocess.CalledProcessError:
+    except FileNotFoundError:
         subprocess.run([Path("utils/blz"), "-eo", filename])
 
 
