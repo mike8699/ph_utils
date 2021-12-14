@@ -69,14 +69,14 @@ def change_first_npcs_item(rom_root_dir: Path = Path.cwd()):
     randomizer.set_location('mercay_island_rollable_tree', 0x77)
 
 def build_data():
-    # fix_first_ocean_temple_chest()
-    change_first_npcs_item()
+    fix_first_ocean_temple_chest()
+    # change_first_npcs_item()
     # BMG_Location.save_all()
-    # ZMB_MPOB_Location.save_all()
+    ZMB_MPOB_Location.save_all()
 
 
 def main(argv: list[str]):
-    # build_data()
+    build_data()
     build_arm9()
     subprocess.run([Path(f"utils/ndstool{'.exe' if os.name == 'nt' else ''}"), '-c', 'out.nds', '-9', 'arm9.bin', '-7', 'arm7.bin', '-y9', 'y9.bin', '-y7', 'y7.bin', '-d', 'data', '-y', 'overlay', '-t', 'banner.bin', '-h', 'header.bin'])
 
