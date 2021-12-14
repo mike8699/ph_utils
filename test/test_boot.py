@@ -1,7 +1,5 @@
 from test.conftest import DesmumeEmulator
 
-import pytest
-
 
 def test_boot_new_game(emulator_at_file_select: DesmumeEmulator):
     """Test bootup from title screen, name entry, and intro CG."""

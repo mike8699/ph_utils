@@ -44,9 +44,6 @@ locations: dict[str, Location] = {
     "flame_temple_first_floor_red_rupee_chest": ZMB_MPOB_Location(
         68, location("Map/dngn_flame/map00.bin/zmb/dngn_flame_00.zmb")
     ),
-    "flame_temple_first_floor_red_rupee_chest": ZMB_MPOB_Location(
-        68, location("Map/dngn_flame/map00.bin/zmb/dngn_flame_00.zmb")
-    ),
     "flame_temple_second_floor_boomerang_chest": ZMB_MPOB_Location(
         7, location("Map/dngn_flame/map01.bin/zmb/dngn_flame_01.zmb")
     ),

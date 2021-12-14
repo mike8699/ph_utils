@@ -6,7 +6,7 @@ def combine_arm9(
     arm9_header="arm9_header.bin",
     arm9_output="arm9.bin",
 ):
-    """Combines header and data into arm9.bin. Functionally the same as makearm9.bin -c"""
+    """Combine header and data into arm9.bin. Functionally the same as makearm9.bin -c."""
     with open(arm9_data, "rb") as input_arm9, open(arm9_header, "rb") as input_header, open(
         arm9_output, "wb"
     ) as output_arm9:
@@ -16,7 +16,7 @@ def combine_arm9(
 
 
 def split_arm9(arm9_bin="arm9.bin", arm9_header="arm9_header.bin", arm9_output="arm9_original.bin"):
-    """Extract arm9 data + header into seperate files. Functionally the same as makearm9.bin -x"""
+    """Extract arm9 data + header into seperate files. Functionally the same as makearm9.bin -x."""
     with open(arm9_bin, "rb") as input_arm9, open(arm9_header, "wb") as output_header, open(
         arm9_output, "wb"
     ) as output_arm9:
