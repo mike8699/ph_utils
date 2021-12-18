@@ -1,8 +1,12 @@
 import os
+from typing import Union
 
 from desmume.emulator import SCREEN_HEIGHT, SCREEN_WIDTH, DeSmuME, DeSmuME_SDL_Window
 import pytest
 
+# TODO: using this temporarily until this is released https://github.com/SkyTemple/py-desmume/pull/19
+def keymask(k):
+    return 1 << (k - 1) if k > 0 else 0
 
 class DesmumeEmulator:
     def __init__(self, rom_path: str, enable_sdl=False):
@@ -30,6 +34,28 @@ class DesmumeEmulator:
         starting_frame = self.frame
         for _ in range(starting_frame, starting_frame + frames):
             self._next_frame()
+
+    def button_input(self, buttons: Union[int, list[int]], idle_frames: int = 0):
+        """
+        Press buttons.
+
+        Params:
+            buttons: A single button (int) to press, or a list of buttons to simultaneously press.
+            idle_frames: Optional number of frames to wait before touching the screen.
+                         Shortcut for calling DesmumeEmulator.wait() before this method.
+        """
+        self.wait(idle_frames)
+        if isinstance(buttons, int):
+            buttons = [buttons]
+        for button in buttons:
+            self.emu.input.keypad_rm_key(keymask(button))
+        self.wait(2)
+        for button in buttons:
+            self.emu.input.keypad_add_key(keymask(button))
+        self.wait(2)
+        for button in buttons:
+            self.emu.input.keypad_rm_key(keymask(button))
+        self.wait(2)
 
     def touch_input(self, position: tuple[int, int], idle_frames: int = 0):
         """
