@@ -4,9 +4,11 @@ from typing import Union
 from desmume.emulator import SCREEN_HEIGHT, SCREEN_WIDTH, DeSmuME, DeSmuME_SDL_Window
 import pytest
 
+
 # TODO: using this temporarily until this is released https://github.com/SkyTemple/py-desmume/pull/19
 def keymask(k):
     return 1 << (k - 1) if k > 0 else 0
+
 
 class DesmumeEmulator:
     def __init__(self, rom_path: str, enable_sdl=False):
