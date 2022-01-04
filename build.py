@@ -35,7 +35,7 @@ def build_arm9():
     Path("arm9_header.bin").unlink()
     Path("arm9_original.bin").unlink()
 
-    overlays = ("0000", "0022", "0031")
+    overlays = ("0000", "0022", "0031", "0037")
 
     for overlay in overlays:
         blz_comp(f"overlay/overlay_{overlay}.bin")

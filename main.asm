@@ -29,6 +29,12 @@
             @init_flags:
                 .include "asm/init_flags.asm"
                 pop r3, pc ; original instruction, do not change
+
+            @drop_lookup:
+                push lr
+                ldr r0, [r4, 0x6C] ; original instruction, don't change
+                .include "asm/drop_lookup.asm"
+                pop pc
         .pool
         .endarea
 
@@ -63,5 +69,15 @@
     .org 0x17420 + 0x0211F5C0 ;0x217bce0
         .area 0x4
             bl @faster_boat
+        .endarea
+.close
+
+.open "overlay/overlay_0037.bin", 0x215b400
+    .arm
+    ; 0x2162790 in memory
+    .org 0x738C + 0x215b400
+        .area 0x4
+            // bl @drop_lookup
+            b 0x2162bf4 ; disables all drops TODO: remove
         .endarea
 .close

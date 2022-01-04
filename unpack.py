@@ -20,7 +20,7 @@ def extract_arm9(argv: list[str]):
 
     blz_decomp("arm9_original.bin")
 
-    overlays = ("0000", "0022", "0031")
+    overlays = ("0000", "0022", "0031", "0037")
     for overlay in overlays:
         blz_decomp(f"overlay/overlay_{overlay}.bin")
 
