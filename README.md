@@ -1,12 +1,18 @@
-# ph-asm
+# ph-utils
+
+This is a collection of random code that modifies the base Legend of Zelda: Phantom Hourglass US ROM in various ways.
+The goal is to eventually get to a point where we can put the game into a "completed"/"open" state as is required
+for a randomizer. For now, this is mostly a collection of experimental assembly hacks and python code.
 
 ## Requirements
 - Python 3.9 or higher (it may work on lower versions of Python 3, but proceed at your own risk)
-- Windows (tested on 8 and 10, not sure about other Windows versions)
-  - This will eventually work on Linux, once I replace some of the Windows-only stuff with more universal tooling
+- Windows or Linux
+  - It's been tested on Windows 8/10; may or may not work on earlier or newer Windows versions.
+  - For now, wine is required if running on Linux.
 
-## Compiling
+## Building the ROM
 
+- Create a virtualenv and run `pip install -e .`
 - Place a valid TLoZ: Phantom Hourglass ROM in the root of the cloned repo and name it `in.nds`
 - Run `unpack.py` with your installed Python runtime
   - At this point you can make changes to `main.asm` if desired
@@ -14,4 +20,4 @@
 
 ## TODO
 
-- Reimplement fixy9.exe and makearm9.exe in Python or something so this can be run on non-Windows machines
+- Reimplement fixy9.exe in Python or something so this can be run on on-Windows machines without Wine
