@@ -1,0 +1,31 @@
+Random stuff that I've discovered that there isn't a place for and/or I haven't had time to properly document.
+
+---------------------------------
+
+
+    The function responsible for spawning NPCs into the game (including any characters, droppable rupees, enemies, etc)
+    is located at 0x20c3fe8 in overlay_0000.bin. The second argument is a string literal representing the NPC type of the object.
+
+
+    The function responsible for determining which item to drop from a rolled-into tree is located somewhere near 0x02162784 in
+    overlay_0037.bin (labeled overlay 18 in Ghidra). It contains what is essentially a giant switch statement in the form of 
+        switch (item_id) {
+            case 0:
+                return
+            case 2:
+                spawn_npc("BEEH") // beehive
+                break
+            case 3:
+                spawn_npc("RUPY", <metadata, such as rupee type> // big red rupee
+                break
+            case 4:
+                spawn_npc("HART") // heart
+                break
+            case 6:
+                spawn_npc("RUPY", ...) // big green rupee
+                break
+            case 7:
+                spawn_npc("RUPY", ...) // small red rupee
+                break
+            ...
+        }
