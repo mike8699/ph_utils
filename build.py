@@ -71,7 +71,7 @@ def change_first_npcs_item(rom_root_dir: Path = CWD):
 
     TODO: remove this once this is properly documented.
     """
-    randomizer.set_location("mercay_island_rollable_tree", 0x77)
+    randomizer.set_location("mercay_island_first_npc", 0x77)
 
 
 def build_data():
