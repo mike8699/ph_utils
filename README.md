@@ -1,3 +1,7 @@
+# DEPRECATION NOTICE
+
+All of the code in this repo has been moved to and/or rewritten in this repo https://github.com/phst-randomizer/ph-randomizer.
+
 # ph-utils
 
 This is a collection of random code that modifies the base Legend of Zelda: Phantom Hourglass US ROM in various ways.
